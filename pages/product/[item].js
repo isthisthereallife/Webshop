@@ -9,7 +9,7 @@ export default function Post({ product }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch('https://api.punkapi.com/v2/beers')
+  const res = await fetch('https://api.punkapi.com/v2/beers?page1&per_page=80')
   const data = await res.json()
 
   const paths = data.map((product) => (
