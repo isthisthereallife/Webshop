@@ -24,7 +24,7 @@ export default function Home({data}) {
             {data.map((beer) => (
             <div className={styles.card}>  
             <Image loader={()=> beer.image_url} src={beer.image_url} width={100} height={250} alt={beer.name}/>
-            <Link  key={beer.id} href={`/beer/${beer.id.toString()}`}>{beer.name}
+            <Link  key={beer.id} href={`/product/${beer.id.toString()}`}>{beer.name}
             </Link>
             </div>
             ))} 
