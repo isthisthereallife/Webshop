@@ -40,7 +40,7 @@ export default function Post({ product }) {
               <Col>
               </Col>
               <Col>
-                <Button>Add to cart</Button>
+                <Button onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
               </Col>
             </Row>
           </Card.Body>
