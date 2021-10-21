@@ -16,7 +16,7 @@ export default function Post({ product }) {
       <Container className={styles.container}>
         <Image className={styles.productImage} height="400px" width="200px" variant="top" src={product[0].image_url} />
 
-        <Card style={{ width: '90vw' }}>
+        <Card className={styles.productCard} >
           <Card.Body>
             <Accordion>
               <Accordion.Item eventKey="0">
@@ -38,7 +38,7 @@ export default function Post({ product }) {
               <Link href={`/`}>
                 <Button className={styles.buttonBack} as={Col}>Go Back</Button>
               </Link>
-              <Button as={Col} className={ styles.buttonAddToCart} onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
+              <Button as={Col} className={styles.buttonAddToCart} onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
             </Row>
           </Card.Body>
         </Card>
