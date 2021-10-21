@@ -10,7 +10,6 @@
   .listGroupItemPrice{
     font-weight: bold;
   }
-
   .buttonAddToCart{
     color:#fff !important;
     background-color: rgb(3, 107, 3);
@@ -20,6 +19,8 @@
     border-radius:5px;
     display:inline-block;
     transition: all 0.4s ease 0s;
+    margin-left:2px;
+    align-self:center;
   }
   .buttonAddToCart:hover{
     background: rgb(3, 165,3);
@@ -36,8 +37,10 @@
     text-decoration: none;
     background: rgb(170, 3, 3);
     padding: 15px;
+    margin-right:2px;
     border-radius: 5px;
     display: inline-block;
+    align-self:center;
     border: none;
     transition: all 0.4s ease 0s;
     }

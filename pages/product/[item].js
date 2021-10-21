@@ -38,9 +38,7 @@ export default function Post({ product }) {
               <Link href={`/`}>
                 <Button className={styles.buttonBack} as={Col}>Go Back</Button>
               </Link>
-              <Col>
-              </Col>
-              <Button as={Col} className={styles.buttonAddToCart} onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
+              <Button as={Col} className={ styles.buttonAddToCart} onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
             </Row>
           </Card.Body>
         </Card>
