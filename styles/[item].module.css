@@ -1,3 +1,9 @@
 .container{
   color:blue;
+  display:flex;
+  flex-direction: column;
+  justify-content:center;
+  }
+  .productImage{
+    color:brown;
   }

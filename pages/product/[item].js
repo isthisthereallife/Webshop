@@ -8,44 +8,42 @@ import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card'
 import ListGroup from 'react-bootstrap/ListGroup'
 import ListGroupItem from 'react-bootstrap/ListGroupItem'
+import Accordion from 'react-bootstrap/Accordion'
 
 export default function Post({ product }) {
-  console.log("product", product[0])
   return (
     <>
       <Container fluid className={styles.container}>
-        <Card style={{ width: '90vw' }}>
-          <Card.Img style={{ height: "400px", width: "200px" }} variant="bottom" src={product[0].image_url} />
+        <Image className={styles.productImage} height="400px" width="200px" variant="top" src={product[0].image_url} />
 
-          {//<Image layout='fill' variant="top" src={product[0].image_url} />
-          }
+        <Card style={{ width: '90vw' }}>
           <Card.Body>
-            <Card.Title>{product[0].name}</Card.Title>
-            <Card.Text>{product[0].description}
-            </Card.Text>
+            <Accordion>
+              <Accordion.Item eventKey="0">
+                <Accordion.Header>{product[0].name}</Accordion.Header>
+                <Accordion.Body>
+                  {product[0].description}
+                </Accordion.Body>
+              </Accordion.Item>
+            </Accordion>
           </Card.Body>
           <ListGroup className="list-group-flush">
             <ListGroupItem><Row><Col>Alc:</Col><Col>{product[0].abv}</Col></Row></ListGroupItem>
             <ListGroupItem><Row><Col>Bitterness:</Col><Col>{product[0].ibu}</Col></Row></ListGroupItem>
             <ListGroupItem><Row><Col>pH:</Col><Col>{product[0].ph}</Col></Row></ListGroupItem>
-            <ListGroupItem><Row><Col>Price:</Col><Col>${product[0].ibu}</Col></Row></ListGroupItem>
+            <ListGroupItem className="list-group-item-price"><Row><Col>Price: </Col><Col>${product[0].ibu}</Col></Row></ListGroupItem>
           </ListGroup>
           <Card.Body>
             <Row>
-              <Col>
-                <Card.Link href={`/`}>
-                  <Button>Go Back</Button>
-                </Card.Link>
-              </Col>
+              <Link href={`/`}>
+                <Button as={Col}>Go Back</Button>
+              </Link>
               <Col>
               </Col>
-              <Col>
-                <Button onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
-              </Col>
+              <Button as={Col} onClick={(() => { alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`) })}> Add to cart</Button>
             </Row>
           </Card.Body>
         </Card>
-        <h2>Price: ${product[0].ibu}</h2>
       </Container>
     </>
   )
