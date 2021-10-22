@@ -14,8 +14,9 @@ export default function Post({ product }) {
   return (
     <>
       <Container className={styles.container}>
-        <Image className={styles.productImage} height="400px" width="200px" variant="top" src={product[0].image_url} />
-
+        <div className={styles.imageDiv}>
+          <Image className={styles.productImage} height="400px" width="200px" variant="top" src={product[0].image_url} />
+        </div>
         <Card className={styles.productCard} >
           <Card.Body>
             <Accordion>
