@@ -2,35 +2,31 @@ import Head from "next/head"
 import Image from "next/image"
 import styles from "../styles/Home.module.css"
 import Link from "next/link"
+import imagePlaceholder from "../images/imagenotfound.png"
 import { useEffect, useState, useRef } from 'react'
-//import useSWR from 'swr'
 
 export default function Home({ data }) {
   const [beers, setBeers] = useState(data)
-  console.log("beeers", beers)
-  console.log("data", data)
   const [searchMode, setSearchMode] = useState("beer_name")
   const [searchValue, setSearchValue] = useState("")
   const inputRef = useRef()
-  const changeSearchMode = ((e) => {
-    console.log(e.target.value)
-    setSearchMode(e.target.value)
 
+  //körs när nytt val görs i dropdownen
+  const changeSearchMode = ((e) => {
+    setSearchMode(e.target.value)
   })
 
-
+  //körs när text i sökrutan ändras
   function handleChangeQuery(event) {
-    console.log(event.target.value)
     setSearchValue(event.target.value)
   }
 
   useEffect(async () => {
-    //kör den här varje gång input i textlådan ändras
+    //gör ny sökning varje gång searchValue eller searchMode ändras
     const newData = await customSearch(searchMode, searchValue)
     setBeers(newData)
-  }, [searchValue])
+  }, [searchValue, searchMode])
 
-  //if (searchValue.length === 0) {
   return (
     <div className={styles.container}>
       <Head>
@@ -47,7 +43,9 @@ export default function Home({ data }) {
         ></input>
         <select value={searchMode} onChange={changeSearchMode}>
           <option value="beer_name">Name</option>
-          <option value="description">Description</option>
+          <option value="hops">Hops</option>
+          <option value="malt">Malt</option>
+          <option value="food">Food pairings</option>
         </select>
 
 
@@ -59,7 +57,7 @@ export default function Home({ data }) {
               <Image
                 unoptimized
                 loader={() => beer.image_url}
-                src={beer.image_url}
+                src={beer.image_url ? beer.image_url : imagePlaceholder}
                 width={100}
                 height={250}
                 alt={beer.name}
@@ -80,15 +78,11 @@ async function customSearch(searchType, query) {
   let res
   if (query.length === 0) {
     res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=80`)
-    console.log("calling api with root query")
   }
   else {
     res = await fetch(`https://api.punkapi.com/v2/beers?${searchType}=${query}`)
-    console.log("calling api with query: ", query)
   }
-  //
   const data = await res.json()
-  console.log("customSearch", data)
   return data
 }
 
@@ -99,17 +93,3 @@ export async function getStaticProps() {
 
   return { props: { data } }
 }
-
-/*
-  const fetcher = (url) => fetch(url).then((res) => res.json())
-  function useQuery(q) {
-    const { data, error } = useSWR(`https://api.punkapi.com/v2/beers?${searchMode}=${searchValue}`, fetcher)
-    console.log("beeeers", data)
-    return {
-      beers: data,
-      isLoading: !error && !data,
-      isError: error
-    }
-  }
-  useQuery()
-*/
