@@ -16,6 +16,12 @@ export default function Home({ data }) {
     setSearchMode(e.target.value);
   };
 
+  //fokus på sökfältet direkt, utan att behöva klicka där
+  useEffect(() => {
+    inputRef.current.focus()
+  }, [])
+
+
   //körs när text i sökrutan ändras
   function handleChangeQuery(event) {
     setSearchValue(event.target.value);
