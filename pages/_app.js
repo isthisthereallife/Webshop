@@ -2,14 +2,16 @@ import Head from "next/head";
 //import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
 
+import { createContext, useState } from "react";
+
+export const CartItemContext = createContext();
+
 function MyApp({ Component, pageProps }) {
+  const [cartItems, setCartItems] = useState({});
   return (
-    <>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-      </Head>
+    <CartItemContext.Provider value={{ cartItems, setCartItems }}>
       <Component {...pageProps} />
-    </>
+    </CartItemContext.Provider>
   );
 }
 

@@ -11,8 +11,17 @@ import ListGroupItem from "react-bootstrap/ListGroupItem";
 import Accordion from "react-bootstrap/Accordion";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import { useState, useContext } from "react";
+import Cart from "../cart";
+import { CartItemContext } from "../_app";
+import Link from "next/link";
 
 export default function Post({ product }) {
+    const [quantity, setQuantity] = useState(1);
+  const [cart, setCart] = useState({ prodName: "", prodPrice: 20, q: 1 });
+  const { cartItems, setCartItems } = useContext(CartItemContext);
+  
+  
   return (
     <Container className={styles.container}>
       <Navbar />
@@ -73,7 +82,13 @@ export default function Post({ product }) {
               as={Col}
               className={styles.buttonAddToCart}
               onClick={() => {
-                alert(`"Tillagt" i "korgen"!\n\n\nnot really tho`);
+                setCartItems({
+            prodName: product[0].name,
+            prodPrice: product[0].ibu * quantity,
+            q: quantity,
+          });
+
+          console.log(cartItems);
               }}
             >
               {" "}
@@ -94,7 +109,9 @@ export async function getStaticPaths() {
   const paths = data.map((product) => ({
     params: { item: `${product.id.toString()}` },
   }));
+
   console.log("paths", paths);
+
 
   return { paths, fallback: false };
 }

@@ -2,6 +2,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+
 import imagePlaceholder from "../images/imagenotfound.png";
 import { useEffect, useState, useRef } from "react";
 import Navbar from "../components/Navbar";
@@ -34,6 +35,7 @@ export default function Home({ data }) {
     setBeers(newData);
   }, [searchValue, searchMode]);
 
+
   return (
     <div className={styles.container}>
       <Head>
@@ -42,6 +44,7 @@ export default function Home({ data }) {
       <Navbar></Navbar>
 
       <main className={styles.main}>
+
         <h2>SEARCH</h2>
         <input
           type="text"
@@ -76,10 +79,12 @@ export default function Home({ data }) {
             ))}
         </div>
         <Footer />
+
       </main>
     </div>
   );
 }
+
 //}
 
 async function customSearch(searchType, query) {
