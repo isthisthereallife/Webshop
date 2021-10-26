@@ -1,3 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navContainer {
+  background-image: url('cover.jpg');
+  height: 60%;
+  width: 95%;
+  margin-top: 1rem;
+  border-radius: 10px;
+ 
+}
+
+.footer {
+  background-color: rgb(34, 33, 32);
+  border: papayawhip;
+  border-radius: 5px;
+    width: 99%;
+    
+    font-style: italic;
+    
+   
+  }
+
+/*
 html,
 body {
   padding: 0;
@@ -14,3 +39,4 @@ a {
 * {
   box-sizing: border-box;
 }
+ */
