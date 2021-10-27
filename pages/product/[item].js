@@ -18,7 +18,7 @@ import { CartItemContext } from "../_app";
 export default function Post({ product }) {
   const [quantity, setQuantity] = useState(1);
   const [cart, setCart] = useState({ prodName: "", prodPrice: 20, q: 1 });
-  const { cartItems, setCartItems } = useContext(CartItemContext);
+  const [cartItems, setCartItems] = useContext(CartItemContext);
 
   return (
     <div className={styles.container}>
@@ -72,11 +72,14 @@ export default function Post({ product }) {
                 as={Col}
                 className={styles.buttonAddToCart}
                 onClick={() => {
-                  setCartItems({
-                    prodName: product[0].name,
-                    prodPrice: product[0].ibu * quantity,
-                    q: quantity,
-                  });
+                  setCartItems((prevCartItems) => [
+                    ...prevCartItems,
+                    {
+                      prodName: product[0].name,
+                      prodPrice: product[0].ibu * quantity,
+                      q: quantity,
+                    },
+                  ]);
 
                   console.log(cartItems);
                 }}
