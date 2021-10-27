@@ -7,9 +7,9 @@ import { createContext, useState } from "react";
 export const CartItemContext = createContext();
 
 function MyApp({ Component, pageProps }) {
-  const [cartItems, setCartItems] = useState({});
+  const [cartItems, setCartItems] = useState([]);
   return (
-    <CartItemContext.Provider value={{ cartItems, setCartItems }}>
+    <CartItemContext.Provider value={[cartItems, setCartItems]}>
       <Component {...pageProps} />
     </CartItemContext.Provider>
   );
