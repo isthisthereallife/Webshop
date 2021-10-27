@@ -8,10 +8,6 @@ import { useEffect, useState, useRef } from "react"
 import Navbar from "../components/Navbar"
 import Footer from "../components/Footer"
 
-let countSearch = 0
-let countBeer = 0
-let useffect = 0
-
 export default function Home({ data }) {
   const [beers, setBeers] = useState(data)
   const [searchMode, setSearchMode] = useState("beer_name")
