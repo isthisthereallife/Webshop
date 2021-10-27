@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from "next/link"
 
 function Navbar() {
   return (
@@ -32,33 +32,25 @@ function Navbar() {
           </div>
           <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto space-x-10">
             <div className=" text-sm lg:flex-grow space-x-20">
-              <a
+              <Link
                 href="/"
                 className="block mt-4 lg:inline-block text-4xl lg:mt-0 text-teal-200 hover:text-white mr-4"
               >
                 Home
-              </a>
+              </Link>
 
               <Link
-                href="../cart"
+                href="/cart"
                 class="block mt-4 lg:inline-block text-4xl lg:mt-0 text-teal-200 hover:text-white mr-4"
-
-              >
-                Shopping Cart
+              >Shopping Cart
               </Link>
-              <a
-
-                href="#"
-                className="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white"
-
-              ></a>
             </div>
             <div></div>
           </div>
         </nav>
       </div>
     </>
-  );
+  )
 }
 
-export default Navbar;
+export default Navbar
