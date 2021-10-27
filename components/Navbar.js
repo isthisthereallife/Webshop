@@ -31,7 +31,7 @@ function Navbar() {
           <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto space-x-10">
             <div class=" text-sm lg:flex-grow space-x-20">
               <a
-                href="#"
+                href="/"
                 class="block mt-4 lg:inline-block text-4xl lg:mt-0 text-teal-200 hover:text-white mr-4"
               >
                 Home
