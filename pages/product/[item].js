@@ -17,7 +17,6 @@ import { CartItemContext } from "../_app";
 
 export default function Post({ product }) {
   const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState({ prodName: "", prodPrice: 20, q: 1 });
   const [cartItems, setCartItems] = useContext(CartItemContext);
 
   return (
