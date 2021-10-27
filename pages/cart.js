@@ -7,7 +7,13 @@ export default function Cart() {
 
   return (
     <div>
-      <p>{cartItems[0].prodName}</p>
+      {cartItems.map((cartItem) => (
+        <div>
+          <p>{cartItem.prodName}</p>
+          <p>{cartItem.prodPrice}</p>
+          <p>{cartItem.q}</p>
+        </div>
+      ))}
     </div>
   );
 }
