@@ -1,16 +1,13 @@
 import { useContext, useState } from "react";
 import { CartItemContext } from "./_app";
 
-export default function Cart({ cart }) {
-  const { cartItems, setCartItems } = useContext(CartItemContext);
-  const [checkoutItems, setCheckoutItems] = useState([]);
-  checkoutItems.push(cart);
+export default function Cart() {
+  const [cartItems, setCartItems] = useContext(CartItemContext);
+  console.log(cartItems);
 
   return (
     <div>
-      <p>{cartItems.prodName}</p>
-      <p>{cartItems.prodPrice}</p>
-      <p>{cartItems.q}</p>
+      <p>{cartItems[0].prodName}</p>
     </div>
   );
 }
