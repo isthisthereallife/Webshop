@@ -24,15 +24,15 @@ export default function Cart() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.main} class="bg-white rounded-md p-1.5">
-        <div class="flex flex-row w-1/2 space-x-20">
+      <div className={styles.main} className="bg-white rounded-md p-1.5">
+        <div className="flex flex-row w-1/2 space-x-20">
           <p>name:</p>
           <p>price:</p>
           <p>quantity:</p>
         </div>
 
         {cartItems.map((cartItem) => (
-          <div class="flex flex-row w-1/2 space-x-20">
+          <div className="flex flex-row w-1/2 space-x-20">
             <p>{cartItem.prodName}</p>
             <p>{cartItem.prodPrice}</p>
             <p>{cartItem.q}</p>
