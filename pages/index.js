@@ -1,20 +1,22 @@
-import Head from "next/head"
-import Image from "next/image"
-import styles from "../styles/Home.module.css"
-import Link from "next/link"
+import Head from "next/head";
+import Image from "next/image";
+import styles from "../styles/Home.module.css";
+import Link from "next/link";
 
-import imagePlaceholder from "../images/imagenotfound.png"
-import { useEffect, useState, useRef } from "react"
-import Navbar from "../components/Navbar"
-import Footer from "../components/Footer"
+import imagePlaceholder from "../images/imagenotfound.png";
+import { useEffect, useState, useRef } from "react";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
 
 export default function Home({ data }) {
+
   const [beers, setBeers] = useState(data)
   const [sorted, setSorted] = useState(false)
   const [searchMode, setSearchMode] = useState("beer_name")
   const [searchValue, setSearchValue] = useState("")
   const [sortMode, setSortMode] = useState("name")
   const inputRef = useRef()
+
 
   //sortera bärsen utifrån vad som valts i dropdown
   function sortBy(property) {
@@ -45,6 +47,7 @@ export default function Home({ data }) {
 
   //körs när nytt val görs i sökningsdropdownen
   const changeSearchMode = (e) => {
+
     setSearchMode(e.target.value)
   }
   //körs när nytt val görs i sorteringsdropdownen
@@ -52,14 +55,15 @@ export default function Home({ data }) {
     setSortMode(e.target.value)
   }
 
+
   //fokus på sökfältet direkt, utan att behöva klicka där
   useEffect(() => {
-    inputRef.current.focus()
-  }, [])
+    inputRef.current.focus();
+  }, []);
 
   //körs när text i sökrutan ändras
   function handleChangeQuery(event) {
-    setSearchValue(event.target.value)
+    setSearchValue(event.target.value);
   }
 
 
@@ -70,7 +74,6 @@ export default function Home({ data }) {
       </Head>
 
       <main className={styles.main}>
-
         <h2>SEARCH</h2>
         <input
           type="text"
@@ -99,7 +102,7 @@ export default function Home({ data }) {
           {beers &&
             beers.map((beer) => (
               <div key={beer.id} className={styles.card}>
-                < Image
+                <Image
                   unoptimized
                   loader={() => beer.image_url}
                   src={beer.image_url ? beer.image_url : imagePlaceholder}
@@ -113,30 +116,33 @@ export default function Home({ data }) {
               </div>
             ))}
         </div>
-
       </main>
     </div>
-  )
+  );
 }
 
 //}
 
 async function customSearch(searchType, query) {
-  let res
+  let res;
   if (query.length === 0) {
+
     res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
+
   } else {
     res = await fetch(
       `https://api.punkapi.com/v2/beers?${searchType}=${query}`
-    )
+    );
   }
-  const data = await res.json()
-  return data
+  const data = await res.json();
+  return data;
 }
 
 export async function getStaticProps() {
+
   const res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
   const data = await res.json()
 
-  return { props: { data } }
+
+  return { props: { data } };
 }
