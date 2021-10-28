@@ -5,7 +5,7 @@ export default function Navbar() {
   return (
     <div className={styles.navbar}>
       <Link href="/"><a>Home</a></Link>
-      <Link href="/checkout"><a>Cart</a></Link>
+      <Link href="/cart"><a>Cart</a></Link>
     </div>
   )
 }

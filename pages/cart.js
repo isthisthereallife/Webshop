@@ -24,7 +24,6 @@ export default function Cart() {
 
   return (
     <div className={styles.container}>
-      <Navbar></Navbar>
       <div className={styles.main} class="bg-white rounded-md p-1.5">
         <div class="flex flex-row w-1/2 space-x-20">
           <p>name:</p>
@@ -44,7 +43,6 @@ export default function Cart() {
         <p>total price: {totalPrice}</p>
         <p>total number of products: {totalProducts}</p>
       </div>
-      <Footer></Footer>
     </div>
   );
 }
