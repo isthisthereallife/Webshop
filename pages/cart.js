@@ -1,5 +1,8 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { CartItemContext } from "./_app";
+import Navbar from "../components/Navbar";
+import Footer from "../components/Footer";
+import styles from "../styles/Home.module.css";
 
 export default function Cart() {
   const [cartItems, setCartItems] = useContext(CartItemContext);
@@ -20,23 +23,28 @@ export default function Cart() {
   }, [cartItems]);
 
   return (
-    <div class="w-1/2">
-      <div class="flex flex-row w-1/2 space-x-20">
-        <p>name:</p>
-        <p>price:</p>
-        <p>quantity:</p>
-      </div>
-
-      {cartItems.map((cartItem) => (
+    <div className={styles.container}>
+      <Navbar></Navbar>
+      <div className={styles.main} class="bg-white rounded-md p-1.5">
         <div class="flex flex-row w-1/2 space-x-20">
-          <p>{cartItem.prodName}</p>
-          <p>{cartItem.prodPrice}</p>
-          <p>{cartItem.q}</p>
+          <p>name:</p>
+          <p>price:</p>
+          <p>quantity:</p>
         </div>
-      ))}
 
-      <p>total price: {totalPrice}</p>
-      <p>total number of products: {totalProducts}</p>
+        {cartItems.map((cartItem) => (
+          <div class="flex flex-row w-1/2 space-x-20">
+            <p>{cartItem.prodName}</p>
+            <p>{cartItem.prodPrice}</p>
+            <p>{cartItem.q}</p>
+            <button onClick={() => {}}>X</button>
+          </div>
+        ))}
+
+        <p>total price: {totalPrice}</p>
+        <p>total number of products: {totalProducts}</p>
+      </div>
+      <Footer></Footer>
     </div>
   );
 }
