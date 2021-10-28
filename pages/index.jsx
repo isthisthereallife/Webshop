@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import sliderStyle from "../styles/sliderStyle.module.css"
 import Link from "next/link";
 import PropTypes from "prop-types"
 
@@ -66,7 +67,50 @@ export default function Home({ data }) {
   function handleChangeQuery(event) {
     setSearchValue(event.target.value);
   }
+  const [sliderMin, setSliderMin] = useState({ id: "min",
+  value: 49 })
+  const [sliderMax, setSliderMax] = useState({ id: "max",
+  value: 50 })
 
+  /*
+   * useEffect(() => {
+   *   console.log("hej")
+   * }), [sliderMin, sliderMax]
+   */
+
+  function sliderChange(e) {
+    switch (e.target.id) {
+      case "min":
+        setSliderMin({ ...sliderMin,
+        "value": e.target.value })
+        console.log("sliderMin: ", sliderMin.value)
+
+        /*
+         * om sliderMin är lika med sliderMax-1 eller mer,
+         * försäkra dej om att max är mer än min
+         */
+        if (sliderMin.value >= sliderMax.value - 1) {
+            setSliderMax({ ...sliderMax,
+            "value": parseInt(sliderMin.value, 10) + 1 })
+          console.log("höjde också sliderMax till: ", sliderMax.value)
+            }
+        break
+      case "max":
+        setSliderMax({ ...sliderMax,
+        "value": e.target.value })
+        console.log("sliderMax: ", sliderMax.value)
+        // försäkra dej om att min är mer än max
+        if (sliderMax.value <= sliderMin.value + 1) {
+          setSliderMin({ ...sliderMin,
+          "value": parseInt(sliderMax.value, 10) - 1 })
+          console.log("sänkte sliderMin till: ", sliderMin.value)
+        }
+        break
+        default:
+          break
+
+  }
+}
 
   return (
     <div className={styles.container}>
@@ -75,6 +119,14 @@ export default function Home({ data }) {
       </Head>
 
       <main className={styles.main}>
+
+
+        <div className={sliderStyle.slidercontainer}>
+          <input type="range" min="0" max="99" value={sliderMin.value} className={sliderStyle.slider} onChange={sliderChange} id={sliderMin.id}/>
+          <input type="range" min="1" max="100" value={sliderMax.value} className={sliderStyle.slider} onChange={sliderChange} id={sliderMax.id}/>
+        </div>
+
+
         <h2>SEARCH</h2>
         <input
           type="text"
