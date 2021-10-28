@@ -42,7 +42,6 @@ function Navbar() {
               >Shopping Cart
               </Link>
             </div>
-            <div></div>
           </div>
         </nav>
       </div>

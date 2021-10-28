@@ -73,6 +73,7 @@ export default function Post({ product }) {
                   setCartItems((prevCartItems) => [
                     ...prevCartItems,
                     {
+                      prodId: product[0].id,
                       prodName: product[0].name,
                       prodPrice: product[0].ibu * quantity,
                       q: quantity,
@@ -88,8 +89,8 @@ export default function Post({ product }) {
             </Row>
           </Card.Body>
         </div>
-      </main>
-    </div>
+      </main >
+    </div >
   )
 }
 
