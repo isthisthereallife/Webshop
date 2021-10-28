@@ -87,7 +87,7 @@ export default function Home({ data }) {
 async function customSearch(searchType, query) {
   let res
   if (query.length === 0) {
-    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=80`)
+    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
   } else {
     res = await fetch(
       `https://api.punkapi.com/v2/beers?${searchType}=${query}`
@@ -98,7 +98,7 @@ async function customSearch(searchType, query) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=80`)
+  const res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
   const data = await res.json()
 
   return { props: { data } }
