@@ -1,18 +1,23 @@
-import Head from "next/head";
+import Head from "next/head"
 //import "bootstrap/dist/css/bootstrap.css";
-import "../styles/globals.css";
+import "../styles/globals.css"
+import Navbar from "../components/Navbar"
+import { createContext, useState } from "react"
+import Footer from "../components/Footer"
 
-import { createContext, useState } from "react";
-
-export const CartItemContext = createContext();
+export const CartItemContext = createContext()
 
 function MyApp({ Component, pageProps }) {
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useState([])
   return (
-    <CartItemContext.Provider value={[cartItems, setCartItems]}>
-      <Component {...pageProps} />
-    </CartItemContext.Provider>
-  );
+    <>
+      <Navbar />
+      <CartItemContext.Provider value={[cartItems, setCartItems]}>
+        <Component {...pageProps} />
+      </CartItemContext.Provider>
+      <Footer />
+    </>
+  )
 }
 
-export default MyApp;
+export default MyApp

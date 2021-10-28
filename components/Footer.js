@@ -12,7 +12,6 @@ function Footer() {
               <div className="flex flex-col">
                 <Link
                   href="https://github.com/isthisthereallife"
-                  className="text-yellow-700  text-md hover:text-red-500"
                 >
                   Magnus
                 </Link>
@@ -20,7 +19,6 @@ function Footer() {
               <div className="flex flex-col">
                 <Link
                   href="https://github.com/H0nken"
-                  className="text-yellow-700  text-md hover:text-red-500"
                 >
                   Jonas
                 </Link>
@@ -28,7 +26,6 @@ function Footer() {
               <div className="flex flex-col">
                 <Link
                   href="https://github.com/anderbecks"
-                  className="text-yellow-700  text-md hover:text-red-500"
                 >
                   Ludvig
                 </Link>

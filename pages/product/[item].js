@@ -22,7 +22,6 @@ export default function Post({ product }) {
 
   return (
     <div className={styles.container}>
-      <Navbar />
       <main className={styles.main}>
         <div className={styles.imageDiv}>
           <Image
@@ -96,7 +95,6 @@ export default function Post({ product }) {
             </Row>
           </Card.Body>
         </div>
-        <Footer />
       </main>
     </div>
   );
