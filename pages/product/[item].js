@@ -73,6 +73,7 @@ export default function Post({ product }) {
                   setCartItems((prevCartItems) => [
                     ...prevCartItems,
                     {
+                      prodId: product.id,
                       prodName: product[0].name,
                       prodPrice: product[0].ibu * quantity,
                       q: quantity,
