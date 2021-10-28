@@ -75,7 +75,7 @@ export default function Post({ product }) {
                   setCartItems((prevCartItems) => [
                     ...prevCartItems,
                     {
-                      prodId: product.id,
+                      prodId: product[0].id,
                       prodName: product[0].name,
                       prodPrice:
                         product[0].ibu * quantityRef.current.value.valueOf(),
@@ -95,9 +95,9 @@ export default function Post({ product }) {
             </Row>
           </Card.Body>
         </div>
-      </main>
-    </div>
-  );
+      </main >
+    </div >
+  )
 }
 
 export async function getStaticPaths() {

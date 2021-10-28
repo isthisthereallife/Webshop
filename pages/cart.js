@@ -24,6 +24,7 @@ export default function Cart() {
 
   return (
     <div className={styles.container}>
+
       <div className={styles.main} className="bg-white rounded-md w-1/2 p-3">
         <table class="table-fixed">
           <thread>
