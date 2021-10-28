@@ -19,6 +19,10 @@ export default function Home({ data }) {
   const [searchValue, setSearchValue] = useState("")
   const [sortMode, setSortMode] = useState("name")
   const inputRef = useRef()
+  const [sliderMin, setSliderMin] = useState({ id: "min",
+  value: 30 })
+  const [sliderMax, setSliderMax] = useState({ id: "max",
+  value: 70 })
 
 
   //sortera bärsen utifrån vad som valts i dropdown
@@ -42,11 +46,11 @@ export default function Home({ data }) {
 
 
   useEffect(async () => {
-    //gör ny sökning varje gång searchValue eller searchMode ändras
-    const newData = await customSearch(searchMode, searchValue)
+    //gör ny sökning varje gång searchValue eller searchMode eller sortMode eller slidern ändras
+    const newData = await customSearch(searchMode, searchValue, sliderMin.value, sliderMax.value)
     setBeers(newData)
     setSorted(false)
-  }, [searchValue, searchMode, sortMode])
+  }, [searchValue, searchMode, sortMode, sliderMin, sliderMax])
 
   //körs när nytt val görs i sökningsdropdownen
   const changeSearchMode = (e) => {
@@ -67,16 +71,6 @@ export default function Home({ data }) {
   function handleChangeQuery(event) {
     setSearchValue(event.target.value);
   }
-  const [sliderMin, setSliderMin] = useState({ id: "min",
-  value: 30 })
-  const [sliderMax, setSliderMax] = useState({ id: "max",
-  value: 70 })
-
-  /*
-   * useEffect(() => {
-   *   console.log("hej")
-   * }), [sliderMin, sliderMax]
-   */
 
   function sliderChange(e) {
     switch (e.target.id) {
@@ -129,7 +123,7 @@ export default function Home({ data }) {
           onChange={handleChangeQuery}
         />
 
-        <div>Search</div>
+        <div>Search for</div>
         <select value={searchMode} onChange={changeSearchMode}>
           <option value="beer_name">Name</option>
           <option value="hops">Hops</option>
@@ -152,6 +146,7 @@ export default function Home({ data }) {
 
 
         <div className={styles.grid}>
+          {console.log("beers", beers)}
           {beers &&
             beers.map((beer) => (
               <div key={beer.id} className={styles.card}>
@@ -174,17 +169,16 @@ export default function Home({ data }) {
   );
 }
 
-//}
-
-async function customSearch(searchType, query) {
+async function customSearch(searchType, query, priceLow, priceHigh) {
   let res;
+  let priceRange = `&ibu_gt=${priceLow}&ibu_lt=${priceHigh}`
   if (query.length === 0) {
 
-    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
+    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32${priceRange}`)
 
   } else {
     res = await fetch(
-      `https://api.punkapi.com/v2/beers?${searchType}=${query}`
+      `https://api.punkapi.com/v2/beers?${searchType}=${query}${priceRange}`
     );
   }
   const data = await res.json();

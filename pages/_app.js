@@ -13,7 +13,6 @@ MyApp.propTypes = {
 
 function MyApp({ Component, pageProps }) {
   const [cartItems, setCartItems] = useState([])
-  let test;
   return (
     <>
       <CartItemContext.Provider value={[cartItems, setCartItems]}>
