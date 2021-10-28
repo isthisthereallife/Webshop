@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import Image from 'next/image'
+import React from 'react'
 import styles from '../styles/Footer.module.css'
 import copyLeft from "../images/Copyleft_white.svg"
 export default function Footer() {

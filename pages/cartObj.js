@@ -1,5 +1,7 @@
-const cartObj = {
-  prodName: "",
-  prodPrice: 1,
-  quantity: 1,
-};
+/*
+ * const cartObj = {
+ * prodName: "",
+ *  prodPrice: 1,
+ *  quantity: 1
+ * };
+ */

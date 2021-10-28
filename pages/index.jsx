@@ -2,12 +2,14 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import Link from "next/link";
+import PropTypes from "prop-types"
 
 import imagePlaceholder from "../images/imagenotfound.png";
-import { useEffect, useState, useRef } from "react";
-import Navbar from "../components/Navbar";
-import Footer from "../components/Footer";
+import { React, useEffect, useState, useRef } from "react";
 
+Home.propTypes = {
+  data: PropTypes.array
+}
 export default function Home({ data }) {
 
   const [beers, setBeers] = useState(data)
@@ -47,7 +49,6 @@ export default function Home({ data }) {
 
   //körs när nytt val görs i sökningsdropdownen
   const changeSearchMode = (e) => {
-
     setSearchMode(e.target.value)
   }
   //körs när nytt val görs i sorteringsdropdownen

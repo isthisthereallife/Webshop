@@ -1,14 +1,19 @@
-import Head from "next/head"
-//import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css"
 import Navbar from "../components/Navbar"
-import { createContext, useState } from "react"
+import { React, createContext, useState } from "react"
+import PropTypes from "prop-types"
 import Footer from "../components/Footer"
 
 export const CartItemContext = createContext()
 
+MyApp.propTypes = {
+  Component: PropTypes.func,
+  pageProps: PropTypes.object
+}
+
 function MyApp({ Component, pageProps }) {
   const [cartItems, setCartItems] = useState([])
+  let test;
   return (
     <>
       <CartItemContext.Provider value={[cartItems, setCartItems]}>
