@@ -24,27 +24,36 @@ export default function Cart() {
 
   return (
     <div className={styles.container}>
-      <Navbar></Navbar>
-      <div className={styles.main} class="bg-white rounded-md p-1.5">
-        <div class="flex flex-row w-1/2 space-x-20">
-          <p>name:</p>
-          <p>price:</p>
-          <p>quantity:</p>
-        </div>
-
-        {cartItems.map((cartItem) => (
-          <div class="flex flex-row w-1/2 space-x-20">
-            <p>{cartItem.prodName}</p>
-            <p>{cartItem.prodPrice}</p>
-            <p>{cartItem.q}</p>
-            <button onClick={() => {}}>X</button>
-          </div>
-        ))}
-
+      <div className={styles.main} className="bg-white rounded-md w-1/2 p-3">
+        <table class="table-fixed">
+          <thread>
+            <tr>
+              <th class="w-1/3">name:</th>
+              <th class="w-1/3">price:</th>
+              <th class="w-1/3">quantity:</th>
+            </tr>
+          </thread>
+          <tbody>
+            {cartItems.map((cartItem) => (
+              <tr>
+                <td class="border w-1/3">{cartItem.prodName}</td>
+                <td class="border w-1/3">{cartItem.prodPrice}</td>
+                <td class="border w-1/3">{cartItem.q}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <p>total price: {totalPrice}</p>
         <p>total number of products: {totalProducts}</p>
+        <button
+          class="bg-red-600 text-white p-1"
+          onClick={() => {
+            setCartItems([]);
+          }}
+        >
+          Empty cart
+        </button>
       </div>
-      <Footer></Footer>
     </div>
   );
 }
