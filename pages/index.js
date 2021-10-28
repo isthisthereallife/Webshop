@@ -40,7 +40,6 @@ export default function Home({ data }) {
       <Head>
         <title>Brewdog</title>
       </Head>
-      <Navbar></Navbar>
 
       <main className={styles.main}>
 
@@ -77,7 +76,6 @@ export default function Home({ data }) {
               </div>
             ))}
         </div>
-        <Footer />
 
       </main>
     </div>

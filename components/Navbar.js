@@ -34,14 +34,11 @@ function Navbar() {
             <div className=" text-sm lg:flex-grow space-x-20">
               <Link
                 href="/"
-                className="block mt-4 lg:inline-block text-4xl lg:mt-0 text-teal-200 hover:text-white mr-4"
               >
                 Home
               </Link>
-
               <Link
                 href="/cart"
-                class="block mt-4 lg:inline-block text-4xl lg:mt-0 text-teal-200 hover:text-white mr-4"
               >Shopping Cart
               </Link>
             </div>
