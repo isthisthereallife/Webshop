@@ -1,0 +1,79 @@
+.slidercontainer{
+  width:100%;  
+  height: 100%;
+  display:flex;
+  justify-content:center;
+  position:relative;
+}
+
+
+.sliderMin {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 40%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: white;
+  outline: none; /* Remove outline */
+  opacity: 1; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  position:absolute;
+  pointer-events: none;
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.sliderMin::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 40px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  opacity: 1;
+  pointer-events:stroke
+}
+
+.sliderMin::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #04AA6D; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  opacity: 1;
+  pointer-events:stroke
+
+}
+.sliderMax {
+  -webkit-appearance: none;  /* Override default CSS styles */
+  appearance: none;
+  width: 40%; /* Full-width */
+  height: 25px; /* Specified height */
+  background: none; /* Grey background */
+  outline: none; /* Remove outline */
+  opacity: 0.9; /* Set transparency (for mouse-over effects on hover) */
+  -webkit-transition: .2s; /* 0.2 seconds transition on hover */
+  transition: opacity .2s;
+  pointer-events:none;
+  position:absolute;
+}
+
+
+/* The slider handle (use -webkit- (Chrome, Opera, Safari, Edge) and -moz- (Firefox) to override default look) */
+.sliderMax::-webkit-slider-thumb {
+  -webkit-appearance: none; /* Override default look */
+  appearance: none;
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #d10902; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  pointer-events:stroke
+}
+
+.sliderMax::-moz-range-thumb {
+  width: 25px; /* Set a specific slider handle width */
+  height: 25px; /* Slider handle height */
+  background: #d10902; /* Green background */
+  cursor: pointer; /* Cursor on hover */
+  pointer-events:stroke
+
+}

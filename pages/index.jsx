@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
+import sliderStyle from "../styles/sliderStyle.module.css"
 import Link from "next/link";
 import PropTypes from "prop-types"
 
@@ -18,6 +19,10 @@ export default function Home({ data }) {
   const [searchValue, setSearchValue] = useState("")
   const [sortMode, setSortMode] = useState("name")
   const inputRef = useRef()
+  const [sliderMin, setSliderMin] = useState({ id: "min",
+  value: 30 })
+  const [sliderMax, setSliderMax] = useState({ id: "max",
+  value: 70 })
 
 
   //sortera bärsen utifrån vad som valts i dropdown
@@ -41,11 +46,11 @@ export default function Home({ data }) {
 
 
   useEffect(async () => {
-    //gör ny sökning varje gång searchValue eller searchMode ändras
-    const newData = await customSearch(searchMode, searchValue)
+    //gör ny sökning varje gång searchValue eller searchMode eller sortMode eller slidern ändras
+    const newData = await customSearch(searchMode, searchValue, sliderMin.value, sliderMax.value)
     setBeers(newData)
     setSorted(false)
-  }, [searchValue, searchMode, sortMode])
+  }, [searchValue, searchMode, sortMode, sliderMin, sliderMax])
 
   //körs när nytt val görs i sökningsdropdownen
   const changeSearchMode = (e) => {
@@ -67,6 +72,39 @@ export default function Home({ data }) {
     setSearchValue(event.target.value);
   }
 
+  function sliderChange(e) {
+    switch (e.target.id) {
+      case "min":
+        setSliderMin({ ...sliderMin,
+        "value": e.target.value })
+        console.log("sliderMin: ", sliderMin.value)
+
+        /*
+         * om sliderMin är lika med sliderMax-1 eller mer,
+         * försäkra dej om att max är mer än min
+         */
+        if (sliderMin.value >= sliderMax.value - 1) {
+            setSliderMax({ ...sliderMax,
+            "value": parseInt(sliderMin.value, 10) + 1 })
+          console.log("höjde också sliderMax till: ", sliderMax.value)
+            }
+        break
+      case "max":
+        setSliderMax({ ...sliderMax,
+        "value": e.target.value })
+        console.log("sliderMax: ", sliderMax.value)
+        // försäkra dej om att min är mer än max
+        if (sliderMax.value <= sliderMin.value + 1) {
+          setSliderMin({ ...sliderMin,
+          "value": parseInt(sliderMax.value, 10) - 1 })
+          console.log("sänkte sliderMin till: ", sliderMin.value)
+        }
+        break
+        default:
+          break
+
+  }
+}
 
   return (
     <div className={styles.container}>
@@ -75,6 +113,7 @@ export default function Home({ data }) {
       </Head>
 
       <main className={styles.main}>
+
         <h2>SEARCH</h2>
         <input
           type="text"
@@ -84,7 +123,7 @@ export default function Home({ data }) {
           onChange={handleChangeQuery}
         />
 
-        <div>Search</div>
+        <div>Search for</div>
         <select value={searchMode} onChange={changeSearchMode}>
           <option value="beer_name">Name</option>
           <option value="hops">Hops</option>
@@ -96,10 +135,18 @@ export default function Home({ data }) {
         <select value={sortMode} onChange={changeSortMode}>
           <option value="name">Name</option>
           <option value="ibu">Price</option>
-
         </select>
 
+          <div>Price range</div>
+        <div>From ${sliderMin.value} to ${sliderMax.value}</div>
+        <div className={sliderStyle.slidercontainer}>
+          <input type="range" min="0" max="99" value={sliderMin.value} className={sliderStyle.sliderMin} onChange={sliderChange} id={sliderMin.id}/>
+          <input type="range" min="1" max="100" value={sliderMax.value} className={sliderStyle.sliderMax} onChange={sliderChange} id={sliderMax.id}/>
+        </div>
+
+
         <div className={styles.grid}>
+          {console.log("beers", beers)}
           {beers &&
             beers.map((beer) => (
               <div key={beer.id} className={styles.card}>
@@ -122,17 +169,16 @@ export default function Home({ data }) {
   );
 }
 
-//}
-
-async function customSearch(searchType, query) {
+async function customSearch(searchType, query, priceLow, priceHigh) {
   let res;
+  let priceRange = `&ibu_gt=${priceLow}&ibu_lt=${priceHigh}`
   if (query.length === 0) {
 
-    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32`)
+    res = await fetch(`https://api.punkapi.com/v2/beers?page1&per_page=32${priceRange}`)
 
   } else {
     res = await fetch(
-      `https://api.punkapi.com/v2/beers?${searchType}=${query}`
+      `https://api.punkapi.com/v2/beers?${searchType}=${query}${priceRange}`
     );
   }
   const data = await res.json();
