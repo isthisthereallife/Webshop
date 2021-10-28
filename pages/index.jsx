@@ -146,7 +146,6 @@ export default function Home({ data }) {
 
 
         <div className={styles.grid}>
-          {console.log("beers", beers)}
           {beers &&
             beers.map((beer) => (
               <div key={beer.id} className={styles.card}>
