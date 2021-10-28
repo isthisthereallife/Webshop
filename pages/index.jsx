@@ -68,9 +68,9 @@ export default function Home({ data }) {
     setSearchValue(event.target.value);
   }
   const [sliderMin, setSliderMin] = useState({ id: "min",
-  value: 49 })
+  value: 30 })
   const [sliderMax, setSliderMax] = useState({ id: "max",
-  value: 50 })
+  value: 70 })
 
   /*
    * useEffect(() => {
@@ -120,13 +120,6 @@ export default function Home({ data }) {
 
       <main className={styles.main}>
 
-
-        <div className={sliderStyle.slidercontainer}>
-          <input type="range" min="0" max="99" value={sliderMin.value} className={sliderStyle.slider} onChange={sliderChange} id={sliderMin.id}/>
-          <input type="range" min="1" max="100" value={sliderMax.value} className={sliderStyle.slider} onChange={sliderChange} id={sliderMax.id}/>
-        </div>
-
-
         <h2>SEARCH</h2>
         <input
           type="text"
@@ -148,8 +141,15 @@ export default function Home({ data }) {
         <select value={sortMode} onChange={changeSortMode}>
           <option value="name">Name</option>
           <option value="ibu">Price</option>
-
         </select>
+
+          <div>Price range</div>
+        <div>From ${sliderMin.value} to ${sliderMax.value}</div>
+        <div className={sliderStyle.slidercontainer}>
+          <input type="range" min="0" max="99" value={sliderMin.value} className={sliderStyle.sliderMin} onChange={sliderChange} id={sliderMin.id}/>
+          <input type="range" min="1" max="100" value={sliderMax.value} className={sliderStyle.sliderMax} onChange={sliderChange} id={sliderMax.id}/>
+        </div>
+
 
         <div className={styles.grid}>
           {beers &&
