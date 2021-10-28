@@ -10,13 +10,46 @@ import Footer from "../components/Footer"
 
 export default function Home({ data }) {
   const [beers, setBeers] = useState(data)
+  const [sorted, setSorted] = useState(false)
   const [searchMode, setSearchMode] = useState("beer_name")
   const [searchValue, setSearchValue] = useState("")
+  const [sortMode, setSortMode] = useState("name")
   const inputRef = useRef()
 
-  //körs när nytt val görs i dropdownen
+  //sortera bärsen utifrån vad som valts i dropdown
+  function sortBy(property) {
+    let templist = [...beers]
+    switch (property) {
+      case "ibu":
+      case "id":
+        setBeers(templist.sort((a, b) => a[property] - (b[property])))
+        break
+      default:
+        setBeers(templist.sort((a, b) => a[property].localeCompare(b[property])))
+    }
+  }
+
+  // aktiveras när ny data laddats in som inte sorterats
+  useEffect(() => {
+    if (!sorted) sortBy(sortMode)
+    setSorted(true)
+  }, [sorted])
+
+
+  useEffect(async () => {
+    //gör ny sökning varje gång searchValue eller searchMode ändras
+    const newData = await customSearch(searchMode, searchValue)
+    setBeers(newData)
+    setSorted(false)
+  }, [searchValue, searchMode, sortMode])
+
+  //körs när nytt val görs i sökningsdropdownen
   const changeSearchMode = (e) => {
     setSearchMode(e.target.value)
+  }
+  //körs när nytt val görs i sorteringsdropdownen
+  const changeSortMode = (e) => {
+    setSortMode(e.target.value)
   }
 
   //fokus på sökfältet direkt, utan att behöva klicka där
@@ -29,11 +62,6 @@ export default function Home({ data }) {
     setSearchValue(event.target.value)
   }
 
-  useEffect(async () => {
-    //gör ny sökning varje gång searchValue eller searchMode ändras
-    const newData = await customSearch(searchMode, searchValue)
-    setBeers(newData)
-  }, [searchValue, searchMode])
 
   return (
     <div className={styles.container}>
@@ -50,12 +78,21 @@ export default function Home({ data }) {
           placeholder="Search..."
           value={searchValue}
           onChange={handleChangeQuery}
-        ></input>
+        />
+
+        <div>Search</div>
         <select value={searchMode} onChange={changeSearchMode}>
           <option value="beer_name">Name</option>
           <option value="hops">Hops</option>
           <option value="malt">Malt</option>
           <option value="food">Food pairings</option>
+        </select>
+
+        <div>Sort by</div>
+        <select value={sortMode} onChange={changeSortMode}>
+          <option value="name">Name</option>
+          <option value="ibu">Price</option>
+
         </select>
 
         <div className={styles.grid}>
