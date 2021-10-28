@@ -20,7 +20,7 @@ export default function Footer() {
         </Link>
       </div>
       <div className={styles.copyLeft}>
-        <Image height="50px" width="50px" src={copyLeft} /> BR3WDOG</div>
+        <Image height="50px" width="50px" src={copyLeft} />  <div className={styles.orgName}>BR3WDOG</div></div>
     </ div >
   )
 }
