@@ -76,7 +76,6 @@ export default function Home({ data }) {
               </div>
             ))}
         </div>
-        <Footer />
 
       </main>
     </div>

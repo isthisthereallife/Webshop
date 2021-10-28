@@ -11,9 +11,11 @@ function MyApp({ Component, pageProps }) {
   const [cartItems, setCartItems] = useState([])
   return (
     <>
+      <Navbar />
       <CartItemContext.Provider value={[cartItems, setCartItems]}>
         <Component {...pageProps} />
       </CartItemContext.Provider>
+      <Footer />
     </>
   )
 }
