@@ -97,8 +97,10 @@
   width: 20%;
   height: 22rem;
   background-image: url('cardImage.jpg');
- 
-    background-size: cover;
+  background-size: cover;
+}
+.card:hover{
+  cursor: pointer;
 }
 
 .shoppingcard {
