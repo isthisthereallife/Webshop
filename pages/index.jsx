@@ -148,6 +148,7 @@ export default function Home({ data }) {
         <div className={styles.grid}>
           {beers &&
             beers.map((beer) => (
+              <Link key={beer.id} href={`/product/${beer.id.toString()}`}>
               <div key={beer.id} className={styles.card}>
                 <Image
                   unoptimized
@@ -157,10 +158,9 @@ export default function Home({ data }) {
                   height={250}
                   alt={beer.name}
                 />
-                <Link key={beer.id} href={`/product/${beer.id.toString()}`}>
                   {beer.name}
-                </Link>
               </div>
+                </Link>
             ))}
         </div>
       </main>

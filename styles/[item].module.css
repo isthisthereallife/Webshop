@@ -30,6 +30,10 @@
       background-size: cover;
   }
 
+  .quantityRow{
+    padding-bottom:5px;
+  }
+
   .listGroupItemPrice{
     font-weight: bold;
   }
