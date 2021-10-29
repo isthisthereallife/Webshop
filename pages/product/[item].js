@@ -9,16 +9,24 @@ import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"
 import ListGroupItem from "react-bootstrap/ListGroupItem"
 import Accordion from "react-bootstrap/Accordion"
+import { OverlayTrigger, Popover } from "react-bootstrap"
 import { CartItemContext } from "../_app"
+import PropTypes from "prop-types"
 
 Post.propTypes = {
-  product: {}
+  product: PropTypes.array
 }
 
 export default function Post({ product }) {
   //const [quantity, setQuantity] = useState(1)
   const [cartItems, setCartItems] = useContext(CartItemContext)
   const quantityRef = useRef()
+
+
+  const popover = (
+    <Popover id="popover-basic">
+      <strong>Added to cart</strong>
+    </Popover>)
 
   return (
     <div className={styles.container}>
@@ -61,37 +69,39 @@ export default function Post({ product }) {
             </ListGroupItem>
           </ListGroup>
           <Card.Body>
+            <Row className={styles.quantityRow}>
+              <p>Quantity</p>
+              <input ref={quantityRef} type="number" placeholder="1"></input>
+            </Row>
             <Row>
               <Link href={`/`}>
                 <Button className={styles.buttonBack} as={Col}>
                   Go Back
                 </Button>
-              </Link>true
-              <Button
-                as={Col}
-                className={styles.buttonAddToCart}
-                onClick={() => {
-                  //setQuantity(quantityRef.current.value.valueOf());
-                  setCartItems((prevCartItems) => [
-                    ...prevCartItems,
-                    {
-                      prodId: product[0].id,
-                      prodName: product[0].name,
-                      prodPrice:
-                        product[0].ibu * quantityRef.current.value.valueOf(),
-                      q: quantityRef.current.value.valueOf()
-                    }
-                  ])
-
-                  console.log(cartItems)
-                }}
-              >
-                {" "}
-                Add to cart
-              </Button>
-              <p>Qantity</p>
-
-              <input ref={quantityRef} type="number" placeholder="1"></input>
+              </Link>
+              <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
+                <Button
+                  as={Col}
+                  className={styles.buttonAddToCart}
+                  onClick={() => {
+                    //setQuantity(quantityRef.current.value.valueOf());
+                    setCartItems((prevCartItems) => [
+                      ...prevCartItems,
+                      {
+                        prodId: product[0].id,
+                        prodName: product[0].name,
+                        prodPrice:
+                          product[0].ibu * quantityRef.current.value.valueOf(),
+                        q: quantityRef.current.value.valueOf()
+                      }
+                    ])
+                  }
+                  }
+                >
+                  {" "}
+                  Add to cart
+                </Button>
+              </OverlayTrigger>
             </Row>
           </Card.Body>
         </div>
@@ -107,8 +117,6 @@ export async function getStaticPaths() {
   const paths = data.map((product) => ({
     params: { item: `${product.id.toString()}` }
   }))
-
-  console.log("paths", paths)
 
   return {
     fallback: true,
