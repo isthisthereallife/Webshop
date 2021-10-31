@@ -1,32 +1,32 @@
-import { React, useContext, useRef } from "react"
-import Link from "next/link"
-import Image from "next/image"
-import styles from "../../styles/[item].module.css"
-import Button from "react-bootstrap/Button"
-import Row from "react-bootstrap/Row"
-import Col from "react-bootstrap/Col"
-import Card from "react-bootstrap/Card"
-import ListGroup from "react-bootstrap/ListGroup"
-import ListGroupItem from "react-bootstrap/ListGroupItem"
-import Accordion from "react-bootstrap/Accordion"
-import { OverlayTrigger, Popover } from "react-bootstrap"
-import { CartItemContext } from "../_app"
-import PropTypes from "prop-types"
+import { React, useContext, useRef } from "react";
+import Link from "next/link";
+import Image from "next/image";
+import styles from "../../styles/[item].module.css";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Card from "react-bootstrap/Card";
+import ListGroup from "react-bootstrap/ListGroup";
+import ListGroupItem from "react-bootstrap/ListGroupItem";
+import Accordion from "react-bootstrap/Accordion";
+import { OverlayTrigger, Popover } from "react-bootstrap";
+import { CartItemContext } from "../_app";
+import PropTypes from "prop-types";
 
 Post.propTypes = {
-  product: PropTypes.array
-}
+  product: PropTypes.array,
+};
 
 export default function Post({ product }) {
   //const [quantity, setQuantity] = useState(1)
-  const [cartItems, setCartItems] = useContext(CartItemContext)
-  const quantityRef = useRef()
-
+  const [cartItems, setCartItems] = useContext(CartItemContext);
+  const quantityRef = useRef();
 
   const popover = (
     <Popover id="popover-basic">
       <strong>Added to cart</strong>
-    </Popover>)
+    </Popover>
+  );
 
   return (
     <div className={styles.container}>
@@ -76,10 +76,14 @@ export default function Post({ product }) {
             <Row>
               <Link href={`/`}>
                 <Button className={styles.buttonBack} as={Col}>
-                  Go Back
+                  Continue Shopping
                 </Button>
               </Link>
-              <OverlayTrigger trigger="focus" placement="right" overlay={popover}>
+              <OverlayTrigger
+                trigger="focus"
+                placement="right"
+                overlay={popover}
+              >
                 <Button
                   as={Col}
                   className={styles.buttonAddToCart}
@@ -92,11 +96,10 @@ export default function Post({ product }) {
                         prodName: product[0].name,
                         prodPrice:
                           product[0].ibu * quantityRef.current.value.valueOf(),
-                        q: quantityRef.current.value.valueOf()
-                      }
-                    ])
-                  }
-                  }
+                        q: quantityRef.current.value.valueOf(),
+                      },
+                    ]);
+                  }}
                 >
                   {" "}
                   Add to cart
@@ -105,27 +108,27 @@ export default function Post({ product }) {
             </Row>
           </Card.Body>
         </div>
-      </main >
-    </div >
-  )
+      </main>
+    </div>
+  );
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("https://api.punkapi.com/v2/beers?page1&per_page=80")
-  const data = await res.json()
+  const res = await fetch("https://api.punkapi.com/v2/beers?page1&per_page=80");
+  const data = await res.json();
 
   const paths = data.map((product) => ({
-    params: { item: `${product.id.toString()}` }
-  }))
+    params: { item: `${product.id.toString()}` },
+  }));
 
   return {
     fallback: true,
-    paths
-  }
+    paths,
+  };
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`https://api.punkapi.com/v2/beers/${params.item}`)
-  const data = await res.json()
-  return { props: { product: data } }
+  const res = await fetch(`https://api.punkapi.com/v2/beers/${params.item}`);
+  const data = await res.json();
+  return { props: { product: data } };
 }
