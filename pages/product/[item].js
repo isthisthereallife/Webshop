@@ -1,3 +1,4 @@
+/* eslint-disable sort-keys */
 import { React, useContext, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -12,6 +13,7 @@ import Accordion from "react-bootstrap/Accordion";
 import { OverlayTrigger, Popover } from "react-bootstrap";
 import { CartItemContext } from "../_app";
 import PropTypes from "prop-types";
+import Swal from "sweetalert2";
 
 Post.propTypes = {
   product: PropTypes.array,
@@ -20,7 +22,7 @@ Post.propTypes = {
 export default function Post({ product }) {
   //const [quantity, setQuantity] = useState(1)
   const [cartItems, setCartItems] = useContext(CartItemContext);
-  const quantityRef = useRef();
+  const quantityRef = useRef(1);
 
   const popover = (
     <Popover id="popover-basic">
@@ -71,7 +73,12 @@ export default function Post({ product }) {
           <Card.Body>
             <Row className={styles.quantityRow}>
               <p>Quantity</p>
-              <input ref={quantityRef} type="number" placeholder="1"></input>
+              <input
+                ref={quantityRef}
+                type="number"
+                value="1"
+                placeholder="1"
+              ></input>
             </Row>
             <Row>
               <Link href={`/`}>
@@ -87,6 +94,7 @@ export default function Post({ product }) {
                 <Button
                   as={Col}
                   className={styles.buttonAddToCart}
+                  // eslint-disable-next-line no-alert
                   onClick={() => {
                     //setQuantity(quantityRef.current.value.valueOf());
                     setCartItems((prevCartItems) => [
@@ -99,6 +107,18 @@ export default function Post({ product }) {
                         q: quantityRef.current.value.valueOf(),
                       },
                     ]);
+
+                    // eslint-disable-next-line implicit-arrow-linebreak
+                    Swal.fire({
+                      title: "Added to your Shopping Cart",
+                      imageUrl:
+                        "https://media.giphy.com/media/Od0QRnzwRBYmDU3eEO/giphy.gif",
+                      imageWidth: 600,
+                      imageHeight: 400,
+                      width: 1500,
+                      height: 1000,
+                      timer: 2000,
+                    });
                   }}
                 >
                   {" "}
