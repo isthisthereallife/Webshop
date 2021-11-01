@@ -1,25 +1,27 @@
-import { React, useContext, useEffect, useState } from "react";
-import { CartItemContext } from "./_app";
+import { React, useContext, useEffect, useState } from "react"
+import { CartItemContext } from "./_app"
 //import styles from "../styles/Cart.module.css";
-import styles from "../styles/Home.module.css";
-import CheckoutButton from "../components/Button";
+import styles from "../styles/Home.module.css"
+import CheckoutButton from "../components/Button"
+import useCart from "../lib/hooks/useCart"
 
 export default function Cart() {
-  const [cartItems, setCartItems] = useContext(CartItemContext);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalProducts, setTotalProducts] = useState(0);
+  const cart = useCart()
+
+  const [totalPrice, setTotalPrice] = useState(0)
+  const [totalProducts, setTotalProducts] = useState(0)
 
   useEffect(() => {
-    let sum = 0;
-    cartItems.map((cartItem) => (sum += cartItem.prodPrice));
-    setTotalPrice(sum);
-  }, [cartItems]);
+    let sum = 0
+    cart.cart.cartItems.map((cartItem) => (sum += cartItem.ibu))
+    setTotalPrice(sum)
+  }, [cart])
 
   useEffect(() => {
-    let sum = 0;
-    cartItems.map((cartItem) => (sum += parseInt(cartItem.q, 10)));
-    setTotalProducts(sum);
-  }, [cartItems]);
+    let sum = 0
+    cart.cart.cartItems.map((cartItem) => (sum += parseInt(cartItem.q, 10)))
+    setTotalProducts(sum)
+  }, [cart])
 
   return (
     <div className={styles.container}>
@@ -34,7 +36,7 @@ export default function Cart() {
               </tr>
             </thread>
             <tbody>
-              {cartItems.map((cartItem) => (
+              {cart.cart.cartItems.map((cartItem) => (
                 <tr key={cartItem.id}>
                   <td className="border w-1/4 bg-white bg-opacity-70">
                     {cartItem.prodName}
@@ -52,9 +54,7 @@ export default function Cart() {
                       onClick={(event) => {
                         const itemList = cartItems.filter(
                           (item) => item.prodName !== event.target.value
-                        );
-                        setCartItems([]);
-                        setCartItems([...itemList]);
+                        )
                       }}
                     >
                       Delete
@@ -71,7 +71,7 @@ export default function Cart() {
           <button
             className="bg-red-500 hover:bg-red-400 text-white font-bold py-4 px-8 rounded-full border-red-700 hover:border-red-500 rounded"
             onClick={() => {
-              setCartItems([]);
+              setCartItems([])
             }}
           >
             Empty cart
@@ -81,5 +81,5 @@ export default function Cart() {
         </div>
       </div>
     </div>
-  );
+  )
 }
