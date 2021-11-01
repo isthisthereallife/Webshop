@@ -1,6 +1,6 @@
 import "../styles/globals.css"
 import Navbar from "../components/Navbar"
-import { React} from "react"
+import { React } from "react"
 import PropTypes from "prop-types"
 import Footer from "../components/Footer"
 import CartProvider from '../components/context/CartProvider'

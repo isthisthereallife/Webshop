@@ -1,9 +1,9 @@
-import { React, useContext, useEffect, useState } from "react"
-import { CartItemContext } from "./_app"
+import { React, useEffect, useState } from "react"
 //import styles from "../styles/Cart.module.css";
 import styles from "../styles/Home.module.css"
 import CheckoutButton from "../components/Button"
 import useCart from "../lib/hooks/useCart"
+import { CART_ACTIONS } from "../lib/reducers/cartReducer"
 
 export default function Cart() {
   const cart = useCart()
@@ -39,23 +39,28 @@ export default function Cart() {
               {cart.cart.cartItems.map((cartItem) => (
                 <tr key={cartItem.id}>
                   <td className="border w-1/4 bg-white bg-opacity-70">
-                    {cartItem.prodName}
+                    {cartItem.name}
                   </td>
                   <td className="border w-1/6 bg-white bg-opacity-70">
-                    {cartItem.prodPrice}
+                    {cartItem.price}
                   </td>
                   <td className="border w-1/6 bg-white bg-opacity-70">
-                    {cartItem.q}
+                    {cartItem.quantity}
                   </td>
                   <td className="w-1/12 bg-white bg-opacity-70">
                     <button
-                      value={cartItem.prodName}
+                      value={cartItem.name}
                       className="bg-red-600 text-white p-1"
-                      onClick={(event) => {
-                        const itemList = cartItems.filter(
-                          (item) => item.prodName !== event.target.value
-                        )
-                      }}
+                      // eslint-disable-next-line no-alert
+                      onClick={() => {
+                        cart.cartDispatch({
+                          payload: {
+                            ...cartItem
+                          },
+                          type: CART_ACTIONS.REMOVE_ITEM
+                        })
+                      }
+                      }
                     >
                       Delete
                     </button>
@@ -71,8 +76,11 @@ export default function Cart() {
           <button
             className="bg-red-500 hover:bg-red-400 text-white font-bold py-4 px-8 rounded-full border-red-700 hover:border-red-500 rounded"
             onClick={() => {
-              setCartItems([])
-            }}
+              cart.cartDispatch({
+                type: CART_ACTIONS.REMOVE_ALL
+              })
+            }
+            }
           >
             Empty cart
           </button>
@@ -80,6 +88,6 @@ export default function Cart() {
           <CheckoutButton />
         </div>
       </div>
-    </div>
+    </div >
   )
 }

@@ -10,8 +10,6 @@ import Card from "react-bootstrap/Card"
 import ListGroup from "react-bootstrap/ListGroup"
 import ListGroupItem from "react-bootstrap/ListGroupItem"
 import Accordion from "react-bootstrap/Accordion"
-import { OverlayTrigger, Popover } from "react-bootstrap"
-import { CartItemContext } from "../_app"
 import PropTypes from "prop-types"
 import Swal from "sweetalert2"
 import useCart from '../../lib/hooks/useCart'
@@ -23,7 +21,6 @@ Post.propTypes = {
 
 export default function Post({ product }) {
   const cart = useCart()
-  const [quantity, setQuantity] = useState(1)
   const quantityRef = useRef("1")
 
 
@@ -93,10 +90,12 @@ export default function Post({ product }) {
                   for (let i = 0; i < quantityRef.current.value.valueOf(); i += 1) {
                     cart.cartDispatch({
                       type: CART_ACTIONS.ADD,
-                      payload: product[0]
+                      payload: {
+                        ...product[0],
+                        quantity: 1
+                      }
                     })
                   }
-                  console.log("cart.cart.cartItems:", cart.cart.cartItems)
                   Swal.fire({
                     title: `Added ${quantityRef.current.value.valueOf()}st ${product[0].name} to your Shopping Cart`,
                     imageUrl:
