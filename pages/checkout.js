@@ -1,5 +1,6 @@
 import { React, useEffect, useState } from "react"
 //import styles from "../styles/Cart.module.css";
+import Link from "next/link"
 import styles from "../styles/Home.module.css"
 import CheckoutButton from "../components/Button"
 import useCart from "../lib/hooks/useCart"
@@ -19,7 +20,7 @@ export default function Cart() {
 
   useEffect(() => {
     let sum = 0
-    cart.cart.cartItems.map((cartItem) => (sum += parseInt(cartItem.q, 10)))
+    cart.cart.cartItems.map((cartItem) => (sum += parseInt(cartItem.quantity, 10)))
     setTotalProducts(sum)
   }, [cart])
 
@@ -39,14 +40,36 @@ export default function Cart() {
               {cart.cart.cartItems.map((cartItem) => (
                 <tr key={cartItem.id}>
                   <td className="border w-1/4 bg-white bg-opacity-70">
-                    {cartItem.name}
+                    <Link key={cartItem.id} href={`/product/${cartItem.id.toString()}`}>
+                      <div>{cartItem.name}</div></Link>
                   </td>
                   <td className="border w-1/6 bg-white bg-opacity-70">
-                    {cartItem.price}
+                    $ {cartItem.ibu}
+                  </td>
+                  <td className="w-1/12 bg-white bg-opacity-70">
+                    <button onClick={() => cart.cartDispatch({
+                      payload: { ...cartItem },
+                      type: CART_ACTIONS.REMOVE_ONE
+                    })
+                    }
+                      type="none">
+                      -
+                    </button>
                   </td>
                   <td className="border w-1/6 bg-white bg-opacity-70">
                     {cartItem.quantity}
                   </td>
+                  <td className="w-1/12 bg-white bg-opacity-70">
+                    <button onClick={() => cart.cartDispatch({
+                      payload: { ...cartItem },
+                      type: CART_ACTIONS.ADD
+                    })
+                    }
+                      type="none">
+                      +
+                    </button>
+                  </td>
+
                   <td className="w-1/12 bg-white bg-opacity-70">
                     <button
                       value={cartItem.name}
