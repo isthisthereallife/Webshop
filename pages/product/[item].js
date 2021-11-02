@@ -1,34 +1,26 @@
 /* eslint-disable sort-keys */
-import { React, useContext, useRef } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import styles from "../../styles/[item].module.css";
-import Button from "react-bootstrap/Button";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import Card from "react-bootstrap/Card";
-import ListGroup from "react-bootstrap/ListGroup";
-import ListGroupItem from "react-bootstrap/ListGroupItem";
-import Accordion from "react-bootstrap/Accordion";
-import { OverlayTrigger, Popover } from "react-bootstrap";
-import { CartItemContext } from "../_app";
-import PropTypes from "prop-types";
-import Swal from "sweetalert2";
-
+import { React, useRef } from "react"
+import Link from "next/link"
+import Image from "next/image"
+import styles from "../../styles/[item].module.css"
+import Button from "react-bootstrap/Button"
+import Row from "react-bootstrap/Row"
+import Col from "react-bootstrap/Col"
+import Card from "react-bootstrap/Card"
+import ListGroup from "react-bootstrap/ListGroup"
+import ListGroupItem from "react-bootstrap/ListGroupItem"
+import PropTypes from "prop-types"
+import Swal from "sweetalert2"
+import useCart from '../../lib/hooks/useCart'
+import { CART_ACTIONS } from '../../lib/reducers/cartReducer'
 Post.propTypes = {
-  product: PropTypes.array,
-};
+  product: PropTypes.array
+}
 
 export default function Post({ product }) {
   //const [quantity, setQuantity] = useState(1)
-  const [cartItems, setCartItems] = useContext(CartItemContext);
-  const quantityRef = useRef(1);
-
-  const popover = (
-    <Popover id="popover-basic">
-      <strong>Added to cart</strong>
-    </Popover>
-  );
+  const cart = useCart()
+  const quantityRef = useRef(1)
 
   return (
     <div className={styles.container}>
@@ -86,73 +78,64 @@ export default function Post({ product }) {
                         Continue Shopping
                       </Button>
                     </Link>
-                    <OverlayTrigger
-                      trigger="focus"
-                      placement="right"
-                      overlay={popover}
-                    >
-                      <Button
-                        as={Col}
-                        className={styles.buttonAddToCart}
-                        // eslint-disable-next-line no-alert
-                        onClick={() => {
-                          //setQuantity(quantityRef.current.value.valueOf());
-                          setCartItems((prevCartItems) => [
-                            ...prevCartItems,
-                            {
-                              prodId: product[0].id,
-                              prodName: product[0].name,
-                              prodPrice:
-                                product[0].ibu *
-                                quantityRef.current.value.valueOf(),
-                              q: quantityRef.current.value.valueOf(),
-                            },
-                          ]);
+                    <Button
+                      as={Col}
+                      className={styles.buttonAddToCart}
+                      // eslint-disable-next-line no-alert
+                      onClick={() => {
+                        for (let i = 0; i < quantityRef.current.value.valueOf(); i += 1) {
+                          cart.cartDispatch({
+                            type: CART_ACTIONS.ADD,
+                            payload: {
+                              ...product[0],
+                              quantity: 1
+                            }
+                          })
+                        }
 
-                          // eslint-disable-next-line implicit-arrow-linebreak
-                          Swal.fire({
-                            title: "Added to your Shopping Cart",
-                            imageUrl:
-                              "https://media.giphy.com/media/Od0QRnzwRBYmDU3eEO/giphy.gif",
-                            imageWidth: 600,
-                            imageHeight: 400,
-                            width: 1500,
-                            height: 1000,
-                            timer: 2000,
-                          });
-                        }}
-                      >
-                        {" "}
-                        Add to cart
-                      </Button>
-                    </OverlayTrigger>
+                        // eslint-disable-next-line implicit-arrow-linebreak
+                        Swal.fire({
+                          title: `Added ${quantityRef.current.value.valueOf()}st ${product[0].name} to your Shopping Cart`,
+                          imageUrl:
+                            "https://media.giphy.com/media/Od0QRnzwRBYmDU3eEO/giphy.gif",
+                          imageWidth: 600,
+                          imageHeight: 400,
+                          width: 1500,
+                          height: 1000,
+                          timer: 2000
+                        })
+                      }}
+                    >
+                      {" "}
+                      Add to cart
+                    </Button>
                   </Row>
                 </Card.Body>
               </div>
             </div>
           </div>
         </div>
-      </main>
-    </div>
-  );
+      </main >
+    </div >
+  )
 }
 
 export async function getStaticPaths() {
-  const res = await fetch("https://api.punkapi.com/v2/beers?page1&per_page=80");
-  const data = await res.json();
+  const res = await fetch("https://api.punkapi.com/v2/beers?page1&per_page=80")
+  const data = await res.json()
 
   const paths = data.map((product) => ({
-    params: { item: `${product.id.toString()}` },
-  }));
+    params: { item: `${product.id.toString()}` }
+  }))
 
   return {
     fallback: true,
-    paths,
-  };
+    paths
+  }
 }
 
 export async function getStaticProps({ params }) {
-  const res = await fetch(`https://api.punkapi.com/v2/beers/${params.item}`);
-  const data = await res.json();
-  return { props: { product: data } };
+  const res = await fetch(`https://api.punkapi.com/v2/beers/${params.item}`)
+  const data = await res.json()
+  return { props: { product: data } }
 }
