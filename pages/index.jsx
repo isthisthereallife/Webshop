@@ -77,7 +77,6 @@ export default function Home({ data }) {
       case "min":
         setSliderMin({ ...sliderMin,
         "value": e.target.value })
-        console.log("sliderMin: ", sliderMin.value)
 
         /*
          * om sliderMin är lika med sliderMax-1 eller mer,
@@ -86,23 +85,19 @@ export default function Home({ data }) {
         if (sliderMin.value >= sliderMax.value - 1) {
             setSliderMax({ ...sliderMax,
             "value": parseInt(sliderMin.value, 10) + 1 })
-          console.log("höjde också sliderMax till: ", sliderMax.value)
             }
         break
       case "max":
         setSliderMax({ ...sliderMax,
         "value": e.target.value })
-        console.log("sliderMax: ", sliderMax.value)
         // försäkra dej om att min är mer än max
         if (sliderMax.value <= sliderMin.value + 1) {
           setSliderMin({ ...sliderMin,
           "value": parseInt(sliderMax.value, 10) - 1 })
-          console.log("sänkte sliderMin till: ", sliderMin.value)
         }
         break
         default:
           break
-
   }
 }
 

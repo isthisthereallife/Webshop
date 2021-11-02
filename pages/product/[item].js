@@ -30,7 +30,7 @@ export default function Post({ product }) {
             <div className={styles.cardItems}>
               <div className="box-content w-1/5 m-4">
                 <Image
-                  style="display:inline"
+                  className="display:inline"
                   height="400px"
                   width="200px"
                   variant="top"

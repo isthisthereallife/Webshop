@@ -98,7 +98,9 @@
   height: 22rem;
   background-color: whitesmoke;
   background-size: cover;
-  display: inline;
+  display: grid;
+  justify-content:center;
+  justify-items:center;
 }
 .card:hover {
   cursor: pointer;
