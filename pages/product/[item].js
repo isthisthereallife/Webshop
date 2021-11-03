@@ -14,7 +14,7 @@ import Swal from "sweetalert2";
 import useCart from "../../lib/hooks/useCart";
 import { CART_ACTIONS } from "../../lib/reducers/cartReducer";
 Post.propTypes = {
-  product: PropTypes.array,
+  product: PropTypes.array
 };
 
 export default function Post({ product }) {
@@ -92,8 +92,8 @@ export default function Post({ product }) {
                             type: CART_ACTIONS.ADD,
                             payload: {
                               ...product[0],
-                              quantity: 1,
-                            },
+                              quantity: 1
+                            }
                           });
                         }
 
@@ -108,7 +108,7 @@ export default function Post({ product }) {
                           imageHeight: 400,
                           width: 1500,
                           height: 1000,
-                          timer: 2000,
+                          timer: 2000
                         });
                       }}
                     >
@@ -131,12 +131,12 @@ export async function getStaticPaths() {
   const data = await res.json();
 
   const paths = data.map((product) => ({
-    params: { item: `${product.id.toString()}` },
+    params: { item: `${product.id.toString()}` }
   }));
 
   return {
     fallback: true,
-    paths,
+    paths
   };
 }
 
