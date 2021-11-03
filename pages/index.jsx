@@ -158,7 +158,7 @@ export default function Home({ data }) {
                   height={250}
                   alt={beer.name}
                 />
-                  <p className="text-3xl font-semibold text-gray-300">{beer.name}</p>
+                  <p className="text-3xl font-semibold text-s-700">{beer.name}</p>
                   <p className="text-2xl font-semibold text-green-500">{beer.ibu}$</p>
               </div>
                 </Link>
