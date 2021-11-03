@@ -117,8 +117,12 @@
   width: 40rem;
   height: 30rem;
   background-image: url("cart.jpg");
-
   background-size: cover;
+}
+@media (max-width:600px){
+.shoppingcard{
+  width:90vw;
+}
 }
 
 .card:hover,
