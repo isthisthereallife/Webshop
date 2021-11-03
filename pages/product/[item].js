@@ -22,7 +22,7 @@ Post.propTypes = {
 export default function Post({ product }) {
   //const [quantity, setQuantity] = useState(1)
   const [cartItems, setCartItems] = useContext(CartItemContext);
-  const quantityRef = useRef(1);
+  const quantityRef = useRef();
 
   const popover = (
     <Popover id="popover-basic">
@@ -73,12 +73,7 @@ export default function Post({ product }) {
           <Card.Body>
             <Row className={styles.quantityRow}>
               <p>Quantity</p>
-              <input
-                ref={quantityRef}
-                type="number"
-                value="1"
-                placeholder="1"
-              ></input>
+              <input ref={quantityRef} type="number" placeholder="1"></input>
             </Row>
             <Row>
               <Link href={`/`}>
