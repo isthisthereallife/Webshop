@@ -96,8 +96,7 @@
   transition: color 0.15s ease, border-color 0.15s ease;
   width: 20%;
   height: 22rem;
-  background-image: url("homebackground.png");
-    background-size: cover;
+  background-color: rgb(252, 245, 245);
   background-size: cover;
   display: inline;
 }
