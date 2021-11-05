@@ -79,7 +79,6 @@ export default function Home({ data }) {
         "value": e.target.value })
 
         /*
-         * om sliderMin är lika med sliderMax-1 eller mer,
          * försäkra dej om att max är mer än min
          */
         if (sliderMin.value >= sliderMax.value - 1) {
@@ -90,7 +89,6 @@ export default function Home({ data }) {
       case "max":
         setSliderMax({ ...sliderMax,
         "value": e.target.value })
-        // försäkra dej om att min är mer än max
         if (sliderMax.value <= sliderMin.value + 1) {
           setSliderMin({ ...sliderMin,
           "value": parseInt(sliderMax.value, 10) - 1 })

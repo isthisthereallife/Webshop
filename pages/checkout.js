@@ -34,7 +34,7 @@ export default function Cart() {
             <Link href={`/`}>
               <button style={{
                 "borderColor": "red",
-                "borderWidth": "2px;"
+                "borderWidth": "2px"
               }}>
                 Continue Shopping
               </button>
@@ -95,7 +95,6 @@ export default function Cart() {
                     <button
                       value={cartItem.name}
                       className="bg-red-600 text-white p-1"
-                      // eslint-disable-next-line no-alert
                       onClick={() => {
                         cart.cartDispatch({
                           payload: {
